@@ -1,5 +1,5 @@
-@import "./styles/app.scss";
 @import "./styles/vars.scss";
+@import "./styles/app.scss";
 
 body {
   margin: 0;
@@ -8,6 +8,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: $blue;
+  color: $white;
 }
 
 code {
@@ -18,4 +21,14 @@ code {
 a {
   text-decoration: none;
   color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  color: inherit;
+  font-size: 1rem;
+  cursor: pointer;
 }
