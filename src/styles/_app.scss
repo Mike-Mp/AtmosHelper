@@ -1,0 +1,13 @@
+.app {
+
+    &__header {
+        padding: 5px;
+        margin: 10px;
+        background-color: salmon;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+    }
+}
