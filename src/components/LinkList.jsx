@@ -5,7 +5,6 @@ export default function LinkList({ list, pathname }) {
     <>
       {list.map((navlink) => {
         let iconToBeUsed = pathname === navlink.pathname;
-        console.log(pathname === navlink.pathname, pathname, iconToBeUsed)
         return (
           <div key={navlink.pathname}>
             <NavLink

@@ -2,11 +2,11 @@ import { useLocation } from "react-router-dom";
 
 import { useState } from "react";
 
-import { navLinks, dropDownLinks } from "../navlinks";
+import { navLinks, dropDownLinks } from "../utils/navlinks";
 
 import LinkList from "./LinkList";
 
-import { toolsIconBlue, toolsIcon } from "../navImports";
+import { toolsIconBlue, toolsIcon } from "../utils/navImports";
 
 // import { useTranslation } from 'react-i18next';
 
@@ -16,8 +16,6 @@ export default function Nav() {
   const [drop, setDrop] = useState(false);
 
   const pathname = useLocation().pathname;
-
-  console.log("PATHNAME", pathname);
 
   return (
     <nav className="app__header">

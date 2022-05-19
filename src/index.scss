@@ -10,7 +10,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   background-color: $blue;
-  color: $white;
+  color: white;
 }
 
 code {
@@ -32,3 +32,14 @@ button {
   font-size: 1rem;
   cursor: pointer;
 }
+
+// input[type="date"] {
+//   border: none;
+//   background-color: transparent;
+//   color: white;
+//   color-scheme: light;
+
+//   &::-webkit- {
+
+//   }
+// }
