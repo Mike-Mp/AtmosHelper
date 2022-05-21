@@ -2,7 +2,7 @@
   "name": "vape-app",
   "private": true,
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "GNU",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -16,7 +16,9 @@
     "react-datepicker": "^4.8.0",
     "react-dom": "^18.0.0",
     "react-i18next": "^11.16.9",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "tauri-plugin-sql-api": "github:tauri-apps/tauri-plugin-sql",
+    "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.0.0-rc.10",

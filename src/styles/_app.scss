@@ -1,8 +1,9 @@
 .app {
 
-    &__header {
+    
+
+    &__nav {
         padding: 5px;
-        // margin: 10px;
         background-color: $white;
         display: flex;
         align-items: center;
@@ -50,20 +51,35 @@
 
             &:hover {
                 text-decoration: underline;
+                text-decoration-color: #00ADB5;
+                text-decoration-thickness: 4px;
             }
         }
     }
 
     &__dropdown.inactive {
-        opacity: 0;
         transition: 0.1s all;
         width: 152px;
         height: 111px;
+        display: none;
     }
 
     &__body {
         width: 80%;
         margin: 0 auto;
     }
+
+    &__header {
+        text-align: right;
+    }
+
+    &__section {
+        width: auto;
+    }
    
+
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
+    }
 }

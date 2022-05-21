@@ -1,0 +1,21 @@
+.form {
+
+    &.form--grid {
+        display: grid;
+        // grid-template-rows: 2;
+        grid-template-columns: 1fr 1fr;
+    }
+    &__section {
+        width: 80%;
+        border: white 1px solid;
+        margin: 0 auto 30px auto;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .input[type="range"] {
+            
+        }
+    }
+}

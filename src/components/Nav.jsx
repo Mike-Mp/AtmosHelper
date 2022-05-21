@@ -18,7 +18,7 @@ export default function Nav() {
   const pathname = useLocation().pathname;
 
   return (
-    <nav className="app__header">
+    <nav className="app__nav">
       <button className="app__dropdown-btn" onClick={() => setDrop((s) => !s)}>
         <img
           src={drop ? toolsIconBlue : toolsIcon}
