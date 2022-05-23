@@ -9,21 +9,46 @@ export default function Ohms() {
   });
 
   function calculate() {
-    if (ohmValues.current === 0 && ohmValues.wattage === 0 ) {
-        const newCurent = ohmValues.voltage / ohmValues.resistance;
-        const newWattage = Math.pow(ohmValues.voltage, 2);
-        setOhmValues({...ohmValues, current: newCurent.toFixed(2), wattage: newWattage.toFixed(2)});
-    } else if (ohmValues.voltage === 0 && ohmValues.resistance === 0) {
-        const newVoltage = ohmValues.wattage / ohmValues.current;
-        const newResistance = newVoltage / ohmValues.current;
-        setOhmValues({...ohmValues, voltage: newVoltage.toFixed(2), resistance: newResistance.toFixed(2)});
-    } else if (ohmValues.voltage === 0 && ohmValues.wattage === 0) {
-        const newVoltage = ohmValues.current * ohmValues.resistance;
-        const newWattage = ohmValues.current * newVoltage;
-        setOhmValues({...ohmValues, voltage: newVoltage.toFixed(2), wattage: newWattage.toFixed(2)});
-    }
-  
+    console.log(ohmValues);
 
+    let current = ohmValues.current > 0;
+    let voltage = ohmValues.voltage > 0;
+    let resistance = ohmValues.resistance > 0;
+    let wattage = ohmValues.wattage > 0;
+    let newWattage = 0;
+    let newVoltage = 0;
+    let newResistance = 0;
+    let newCurrent = 0;
+
+    if (current && resistance) {
+      newWattage = (Math.pow(ohmValues.current, 2) * ohmValues.resistance).toFixed(2);
+      newVoltage = (ohmValues.resistance * ohmValues.current).toFixed(2);
+      setOhmValues({...ohmValues, voltage: newVoltage, wattage: newWattage});
+    } else if (current && voltage) {
+      newWattage = (ohmValues.current * ohmValues.voltage).toFixed(2);
+      newResistance = (ohmValues.voltage / ohmValues.current).toFixed(2);
+      setOhmValues({...ohmValues, resistance: newResistance, wattage: newWattage});
+    } else if (wattage && current) {
+      newVoltage = (ohmValues.wattage / ohmValues.current).toFixed(2);
+      newResistance = (ohmValues.wattage / Math.pow(ohmValues.current, 2)).toFixed(2);
+      setOhmValues({...ohmValues, voltage: newVoltage, resistance: newResistance});
+    } else if (voltage && resistance) {
+      newWattage = (Math.pow(ohmValues.voltage, 2) / ohmValues.resistance).toFixed(2);
+      newCurrent = (ohmValues.voltage / ohmValues.resistance).toFixed(2); 
+      setOhmValues({...ohmValues, wattage: newWattage, current: newCurrent});
+    } else if (wattage && voltage) {
+      newCurrent = (ohmValues.wattage / ohmValues.voltage).toFixed(2);
+      newResistance = (Math.pow(ohmValues.voltage, 2) / ohmValues.wattage).toFixed(2);
+      setOhmValues({...ohmValues, current: newCurrent, resistance: newResistance});
+    } else if (current && voltage) {
+      newWattage = (ohmValues.voltage * ohmValues.current).toFixed(2);
+      newResistance = (ohmValues.voltage / ohmValues.current).toFixed(2);
+      setOhmValues({...ohmValues, wattage: newWattage, resistance: newResistance});
+    } else if (wattage && resistance) {
+      newVoltage = (Math.sqrt(ohmValues.wattage * ohmValues.resistance)).toFixed(2);
+      newCurrent = (Math.sqrt(ohmValues.wattage / ohmValues.resistance)).toFixed(2);
+      setOhmValues({...ohmValues, voltage: newVoltage, current: newCurrent});
+    }
   }
 
   function reset() {
@@ -40,7 +65,7 @@ export default function Ohms() {
       <section className="app__section">
         <div className="form form--grid">
           <div className="form__section">
-            <label htmlFor="voltage">VOLTAGE (Volt)</label>
+            <label htmlFor="voltage"><span>VOLTAGE (Volt)</span> <span>max: 16.8</span></label>
             <input
               type="text"
               value={ohmValues.voltage}
@@ -61,13 +86,15 @@ export default function Ohms() {
           </div>
 
           <div className="form__section">
-            <label htmlFor="voltage">RESISTANCE (Ohm)</label>
+            <label htmlFor="voltage"><span>RESISTANCE (Ohm) </span> <span>max: 3</span></label>
             <input
               type="number"
               value={ohmValues.resistance}
               onChange={(e) =>
                 setOhmValues({ ...ohmValues, resistance: e.target.value })
               }
+              step="0.01"
+              max="3"
             />
             <input
               type="range"
@@ -82,14 +109,15 @@ export default function Ohms() {
           </div>
 
           <div className="form__section">
-            <label>CURRENT (Amp)</label>
+            <label><span>CURRENT (Amp)</span><span>max: 60</span></label>
             <input
               type="number"
               value={ohmValues.current}
               onChange={(e) =>
                 setOhmValues({ ...ohmValues, current: e.target.value })
               }
-              max="400"
+              max="60"
+              step="0.01"
             />
             <input
               type="range"
@@ -97,12 +125,13 @@ export default function Ohms() {
               onChange={(e) =>
                 setOhmValues({ ...ohmValues, current: e.target.value })
               }
+              max="60"
               step="0.01"
             />
           </div>
 
           <div className="form__section">
-            <label>WATTAGE (Watt)</label>
+            <label><span>WATTAGE (Watt)</span><span>max: 400</span></label>
             <input
               type="number"
               value={ohmValues.wattage}
@@ -110,6 +139,7 @@ export default function Ohms() {
                 setOhmValues({ ...ohmValues, wattage: e.target.value })
               }
               max="400"
+              step="0.01"
             />
             <input
               type="range"
