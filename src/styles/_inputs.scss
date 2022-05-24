@@ -11,7 +11,7 @@
 
 .select {
    background-color: white;
-   border: thin solid blue;
+   border: thin solid rgb(255, 255, 255);
    border-radius: 4px;
    display: inline-block;
    font: inherit;
@@ -20,6 +20,7 @@
 
    /* reset */
 
+   margin-top: 6px;
    margin-bottom: 20px;
 
    -webkit-box-sizing: border-box;
@@ -42,5 +43,11 @@
       background-repeat: no-repeat;
       border-color: green;
       outline: 0;
+   }
+}
+
+.td {
+   &.td--center {
+      text-align: center;
    }
 }

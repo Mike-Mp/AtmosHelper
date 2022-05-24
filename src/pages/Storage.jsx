@@ -4,6 +4,9 @@ import { Link, useParams } from "react-router-dom";
 
 import { init } from "../services/Functions";
 
+import editIcon from "../icons/edit.svg";
+import noteIcon from "../icons/note.svg";
+
 export default function Storage() {
   const [storageItems, setStorageItems] = useState([]);
 
@@ -31,33 +34,53 @@ export default function Storage() {
   return (
     <div className="app__body">
       <header className="app__header">
-        
         <h1>Storage</h1>
       </header>
 
-        <select className="select">
-          <option>All</option>
-          <option>BigVape</option>
-          <option>AtmosLab</option>
-          <option>SmokeMan</option>
-        </select>
+      <select className="select right">
+        <option>All</option>
+        <option>BigVape</option>
+        <option>AtmosLab</option>
+        <option>SmokeMan</option>
+      </select>
 
-      <section className="app__section section--grid">
-        {storageItems.length > 0
-          ? storageItems.map((item) => (
-              <div key={item.id} className={`storage-item ${item.color}`}>
-                <span>{item.flavor_name}</span> <span>[{item.amount}]</span>
-              </div>
-            ))
-          : ""}
+      {/* <section className="app__section section--grid"> */}
+      <section className="app__section section--table">
+        <table>
+          <tbody>
+            <tr>
+              <th>Brand Name</th>
+              <th>Flavor Name</th>
+              <th>Amount</th>
+              <th>Notes</th>
+              <th>Edit</th>
+            </tr>
+            {storageItems.length > 0
+              ? storageItems.map((item) => (
+                  <tr key={item.id} className={`storage-item ${item.color}`}>
+                    <td>Big Vape</td>
+                    <td>{item.flavor_name}</td>
+                    <td>{item.amount}</td>
+                    <td className="td td--center">
+                      <img src={noteIcon} onClick={(() => showNote(item.notes))}/>
+                    </td>
+                    <td className="td td--center">
+                      <img src={editIcon} onClick={() => editItem(item.id)} />
+                    </td>
+                  </tr>
+                ))
+              : ""}
+          </tbody>
+        </table>
       </section>
+      {/* </section> */}
 
       <section className="app__section section--page-btns">
         <Link to={`/storage/${page_number - 1}`}>
-            <button disabled={page_number === 1}>Back</button>
+          <button disabled={page_number === 1}>Back</button>
         </Link>
         <Link to={`/storage/${page_number + 1}`}>
-            <button disabled={storageItems.length === 0}>More</button>
+          <button disabled={storageItems.length === 0}>More</button>
         </Link>
       </section>
 

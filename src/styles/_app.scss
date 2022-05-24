@@ -86,11 +86,28 @@
         &.section--page-btns {
             display: flex;
             justify-content: space-between;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            button {
+                padding: 10px;
+                border-radius: 5px;
+                background-color: $white;
+                color: $black;
+            }
         }
 
         .storage-item {
-            padding: 10px;
-            background-color: salmon;
+            background-color: $white;
+            color: $black;
+
+            td {
+                padding: 5px;
+            }
+
+            img {
+                width: 15px;
+                height: 15px;
+            }
 
             &.strawberry {
                 background-color: pink;
@@ -109,8 +126,4 @@
     }
    
 
-    &__buttons {
-        display: flex;
-        justify-content: space-between;
-    }
 }
