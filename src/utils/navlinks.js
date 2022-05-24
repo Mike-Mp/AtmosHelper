@@ -10,6 +10,10 @@ const navLinks = [
        icons: [icons.settingsIcon, icons.settingsIconBlue]
    },
    {
+       pathname: "/storage/1?brand=all",
+       icons: [icons.storageIcon, icons.storageIconBlue]
+   },
+   {
        pathname: "/about",
        icons: [icons.infoIcon, icons.infoIconBlue]
    },

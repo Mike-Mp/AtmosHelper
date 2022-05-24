@@ -9,8 +9,6 @@ export default function Ohms() {
   });
 
   function calculate() {
-    console.log(ohmValues);
-
     let current = ohmValues.current > 0;
     let voltage = ohmValues.voltage > 0;
     let resistance = ohmValues.resistance > 0;

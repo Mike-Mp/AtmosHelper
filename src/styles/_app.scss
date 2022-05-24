@@ -11,7 +11,7 @@
         gap: 10px;
         color: $black;
 
-        & > div:nth-child(4) {
+        & > div:nth-child(5) {
             margin-left: auto;
         }
     }
@@ -75,6 +75,37 @@
 
     &__section {
         width: auto;
+
+        &.section--grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            column-gap: 20px;
+            row-gap: 30px;
+        }
+
+        &.section--page-btns {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .storage-item {
+            padding: 10px;
+            background-color: salmon;
+
+            &.strawberry {
+                background-color: pink;
+                color: black;
+            }
+            &.lemon {
+                background-color: yellow;
+            }
+            &.watermelon {
+                background-color: rgb(10, 180, 10);
+            }
+            &.coffee {
+                background-color: rgb(116, 38, 38);
+            }
+        }
     }
    
 

@@ -12,6 +12,8 @@ import bottleIcon from "../icons/bottle.svg";
 import bottleIconBlue from "../icons/bottle-blue.svg";
 import infoIcon from "../icons/info.svg";
 import infoIconBlue from "../icons/info-blue.svg";
+import storageIcon from '../icons/storage.svg';
+import storageIconBlue from '../icons/storage-blue.svg';
 
 export {
     homeIcon,
@@ -28,4 +30,6 @@ export {
     bottleIconBlue,
     infoIcon,
     infoIconBlue,
+    storageIcon,
+    storageIconBlue
 };

@@ -11,9 +11,14 @@ async function connect() {
   }
 }
 
-async function all() {
+async function all(offset) {
   const db = await connect();
-  return await db.select("SELECT * FROM todos");
+  return await db.select("SELECT * FROM flavors limit 9 offset ?", [offset]);
+}
+
+async function fromBrandName(offset, brandName) {
+  const db = await connect();
+  return await db.select("SELECT * FROM flavors limit 9 offset ? WHERE brand_name = ?", [offset, brandName])
 }
 
 async function getDaysSmoked() {
@@ -49,6 +54,7 @@ async function create(title) {
 
 export default {
   all,
+  fromBrandName,
   create,
   getDaysSmoked,
   changeDaysSmoked

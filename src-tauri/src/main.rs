@@ -8,10 +8,8 @@
 use tauri_plugin_sql::{TauriSql, Migration, MigrationKind };
 
 fn main() {
-  // let settings = StoreBuilder::new(".setting".parse().unwrap())
+  // let storage = StoreBuilder::new(".setting".parse().unwrap())
   //   .build();
-  
-  // let db = TauriSql::
 
   tauri::Builder::default()
     .plugin(TauriSql::default().add_migrations("sqlite:test.db", vec![Migration {
