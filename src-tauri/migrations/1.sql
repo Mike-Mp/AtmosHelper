@@ -24,10 +24,10 @@ CREATE TABLE flavors (
 INSERT INTO brands (brand_name)
 VALUES('BigVape');
 
-INSERT INTO flavors (brand_id, flavor_name, amount)
+INSERT INTO flavors (brand_id, flavor_name, amount, notes)
 VALUES
-    (1, "Strawberry Lemon", 2),
-    (1, "Chocolate Lemon", 1),
-    (1, "Cocoa Mango", 3),
-    (1, "Tzatziki Pie", 10),
-    (1, "Melon Pie", 5);
+    (1, "Strawberry Lemon", 2, "enjoyable"),
+    (1, "Chocolate Lemon", 1, "Interesting mix of flavors"),
+    (1, "Cocoa Mango", 3, "this sucks completely"),
+    (1, "Tzatziki Pie", 10, "Vaping this with pita gyro"),
+    (1, "Melon Pie", 5, "good");

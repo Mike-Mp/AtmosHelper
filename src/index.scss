@@ -4,6 +4,7 @@
 @import "./styles/form.scss";
 @import "./styles/btn.scss";
 @import "./styles/message.scss";
+@import "./styles/note.scss";
 
 body {
   margin: 0;
@@ -49,5 +50,5 @@ button {
 // }
 
 .right {
-  float: right
+  float: right;
 }

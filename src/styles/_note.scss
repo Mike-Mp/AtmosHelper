@@ -1,0 +1,17 @@
+.note {
+    position: fixed;
+    top: 20%;
+    left: 30%;
+    border: 5px solid salmon;
+    padding: 10px;
+    z-index: 999;
+    box-shadow: 1.5px 1.5px 1.5px $white;
+    background-color: $white;
+
+    &__header {
+    }
+
+    &__body {
+        color: black;
+    }
+}

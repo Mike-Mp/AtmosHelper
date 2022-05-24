@@ -107,6 +107,7 @@
             img {
                 width: 15px;
                 height: 15px;
+                cursor: pointer;
             }
 
             &.strawberry {
@@ -125,5 +126,9 @@
         }
     }
    
+    &__buttons {
+        display: flex;
+        justify-content: space-between;
+    }
 
 }

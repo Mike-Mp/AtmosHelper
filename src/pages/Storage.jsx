@@ -4,11 +4,15 @@ import { Link, useParams } from "react-router-dom";
 
 import { init } from "../services/Functions";
 
+import Note from "../components/Note";
+
 import editIcon from "../icons/edit.svg";
 import noteIcon from "../icons/note.svg";
+import addIcon from "../icons/add-btn.svg";
 
 export default function Storage() {
   const [storageItems, setStorageItems] = useState([]);
+  const [itemNote, setItemNote] = useState({ show: false, note: "" });
 
   let { page_number } = useParams();
   page_number = parseInt(page_number);
@@ -31,8 +35,18 @@ export default function Storage() {
     initData();
   }, [page_number]);
 
+  function addItem() {
+    console.log("add");
+  }
+
+  function showNote(notes) {
+    console.log(notes)
+    setItemNote({ show: true, note: notes });
+  }
+
   return (
     <div className="app__body">
+      {itemNote.show ? <Note note={itemNote.note} setItemNote={setItemNote} /> : ''}
       <header className="app__header">
         <h1>Storage</h1>
       </header>
@@ -44,35 +58,52 @@ export default function Storage() {
         <option>SmokeMan</option>
       </select>
 
+      <button className="btn btn--add-item">
+        <img
+          onClick={addItem}
+          src={addIcon}
+          width="20"
+          height="20"
+          className="btn btn--add-item"
+        />
+        <span>Add new item</span>
+      </button>
+
       {/* <section className="app__section section--grid"> */}
-      <section className="app__section section--table">
-        <table>
-          <tbody>
-            <tr>
-              <th>Brand Name</th>
-              <th>Flavor Name</th>
-              <th>Amount</th>
-              <th>Notes</th>
-              <th>Edit</th>
-            </tr>
-            {storageItems.length > 0
-              ? storageItems.map((item) => (
+      {storageItems.length > 0 ? (
+        <section className="app__section section--table">
+          <table>
+            <tbody>
+              <tr>
+                <th>Brand Name</th>
+                <th>Flavor Name</th>
+                <th>Amount</th>
+                <th>Notes</th>
+                <th>Edit</th>
+              </tr>
+              {storageItems &&
+                storageItems.map((item) => (
                   <tr key={item.id} className={`storage-item ${item.color}`}>
                     <td>Big Vape</td>
                     <td>{item.flavor_name}</td>
                     <td>{item.amount}</td>
                     <td className="td td--center">
-                      <img src={noteIcon} onClick={(() => showNote(item.notes))}/>
+                      <img
+                        src={noteIcon}
+                        onClick={() => showNote(item.notes)}
+                      />
                     </td>
                     <td className="td td--center">
                       <img src={editIcon} onClick={() => editItem(item.id)} />
                     </td>
                   </tr>
-                ))
-              : ""}
-          </tbody>
-        </table>
-      </section>
+                ))}
+            </tbody>
+          </table>
+        </section>
+      ) : (
+        ""
+      )}
       {/* </section> */}
 
       <section className="app__section section--page-btns">
