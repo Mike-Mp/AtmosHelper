@@ -5,6 +5,12 @@ export async function init(offset) {
   return items;
 }
 
+export async function getBrands() {
+  const items = await Storage.getBrands();
+  console.log(items);
+  return items;
+}
+
 export async function fromBrandName(offset, brandName) {
   const items = await Storage.fromBrandName(offset, brandName);
   return items;

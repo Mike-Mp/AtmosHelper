@@ -93,6 +93,12 @@
                 border-radius: 5px;
                 background-color: $white;
                 color: $black;
+
+                &:disabled {
+                    background-color: black;
+                    color: rgb(68, 66, 66);
+                    cursor: default;
+                }
             }
         }
 

@@ -52,3 +52,19 @@ button {
 .right {
   float: right;
 }
+
+.flex {
+  display: flex;
+
+  &.f-s {
+    justify-content: flex-start;
+  }
+
+  &.s-b {
+    justify-content: space-between;
+  }
+
+  &.g-20 {
+    gap: 20px;
+  }
+}

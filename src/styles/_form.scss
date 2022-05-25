@@ -14,13 +14,26 @@
         flex-direction: column;
         gap: 10px;
 
-        .input[type="range"] {
+        input[type="range"] {
             
         }
 
         label {
             display: flex;
             justify-content: space-between;
+
+            &.radio {
+                span {
+                    margin-left: auto;
+                }
+                input[type="checkbox"] {
+                    margin-top: 5px;
+                }
+            }
         }
+    }
+
+    &__info {
+        color: rgb(158, 158, 158);
     }
 }

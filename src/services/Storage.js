@@ -1,7 +1,5 @@
 import Database from "tauri-plugin-sql-api";
 
-// let db = null;
-
 async function connect() {
   try {
     let db = await Database.load("sqlite:test.db");
@@ -19,6 +17,11 @@ async function all(offset) {
 async function fromBrandName(offset, brandName) {
   const db = await connect();
   return await db.select("SELECT * FROM flavors limit 9 offset ? WHERE brand_name = ?", [offset, brandName])
+}
+
+async function getBrands() {
+  const db = await connect();
+  return await db.select("SELECT * FROM brands");
 }
 
 async function getDaysSmoked() {
@@ -54,8 +57,9 @@ async function create(title) {
 
 export default {
   all,
-  fromBrandName,
   create,
+  fromBrandName,
+  getBrands,
   getDaysSmoked,
   changeDaysSmoked
 };

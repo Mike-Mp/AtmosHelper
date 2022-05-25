@@ -13,7 +13,7 @@ CREATE TABLE brands (
 CREATE TABLE flavors (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     flavor_name TEXT NOT NULL,
-    color TEXT NULL,
+    liked BOOLEAN NULL CHECK (liked IN (0, 1)),
     notes TEXT NULL,
     brand_id INTEGER NOT NULL,
     amount INTEGER NOT NULL,
@@ -24,10 +24,10 @@ CREATE TABLE flavors (
 INSERT INTO brands (brand_name)
 VALUES('BigVape');
 
-INSERT INTO flavors (brand_id, flavor_name, amount, notes)
+INSERT INTO flavors (brand_id, flavor_name, amount, notes, liked)
 VALUES
-    (1, "Strawberry Lemon", 2, "enjoyable"),
-    (1, "Chocolate Lemon", 1, "Interesting mix of flavors"),
-    (1, "Cocoa Mango", 3, "this sucks completely"),
-    (1, "Tzatziki Pie", 10, "Vaping this with pita gyro"),
-    (1, "Melon Pie", 5, "good");
+    (1, "Strawberry Lemon", 2, "enjoyable", 1),
+    (1, "Chocolate Lemon", 1, "Interesting mix of flavors", 1),
+    (1, "Cocoa Mango", 3, "this sucks completely", 0),
+    (1, "Tzatziki Pie", 10, "Vaping this with pita gyro", 1),
+    (1, "Melon Pie", 5, "good", 1);
