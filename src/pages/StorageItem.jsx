@@ -1,8 +1,15 @@
 import { useEffect, useState } from "react";
 
-import { getBrands } from "../services/Functions";
+import { useParams, useSearchParams  } from "react-router-dom";
 
-export default function AddNewStorageItem() {
+import { getBrands, getFlavor } from "../services/Functions";
+
+export default function StorageItem() {
+  const { item_id } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const brand_name = searchParams.get('brand_name');
+
   const [allBrands, setAllBrands] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState(allBrands[0]?.id);
   const [useBrands, setUseBrands] = useState(false);
@@ -10,29 +17,42 @@ export default function AddNewStorageItem() {
   const [flavorData, setFlavorData] = useState({
     flavor_name: "",
     liked: 0,
-    notes: "",
+    note: "",
     brand_id: null,
     amount: 0,
+    color: "",
+    color_id: null,
   });
+
+  useEffect(() => {
+      getBrandsList();
+  }, []);
+
+  useEffect(() => {
+    async function getItemData() {
+      if (item_id) {
+        const data = await getFlavor(item_id);
+        console.log(data);
+        setBrandName(brand_name);
+        setFlavorData({ ...data });
+      }
+    }
+    getItemData();
+  }, []);
 
   async function getBrandsList() {
     try {
       const data = await getBrands();
-      console.log(data);
       setAllBrands(data);
     } catch (err) {
       console.log(err);
     }
   }
 
-  useEffect(() => {
-    getBrandsList();
-  }, []);
-
   return (
     <div className="app__body">
       <header className="app__header">
-        <h1>Add Storage Item</h1>
+        <h1>{item_id ? "Edit Storage Item" : "Add Storage Item"}</h1>
       </header>
 
       <div className="form">
@@ -66,27 +86,40 @@ export default function AddNewStorageItem() {
           </label>
           <input
             type="text"
+            spellCheck={false}
+            value={brandName}
             onChange={(e) => setBrandName(e.target.value)}
             disabled={useBrands}
           />
 
-              <label>Flavor Name</label>
-              <input
-                type="text"
-                onChange={(e) =>
-                  setFlavorData({ ...flavorData, flavor_name: e.target.value })
-                }
-              />
-              <label>Color</label>
-              <select className="select w-100">
-                <option value="default">Default</option>
-                <option value="strawberry">Strawberry</option>
-                <option value="lemon">Lemon</option>
-                <option value="watermelon">Watermelon</option>
-                <option value="coffee">Coffee</option>
-              </select>
+          <label>Flavor Name</label>
+          <input
+            spellCheck={false}
+            type="text"
+            value={flavorData.flavor_name}
+            onChange={(e) =>
+              setFlavorData({ ...flavorData, flavor_name: e.target.value })
+            }
+          />
+          <label>Color</label>
+          <select className="select w-100">
+            <option value="default">Default</option>
+            <option value="strawberry">Strawberry</option>
+            <option value="lemon">Lemon</option>
+            <option value="watermelon">Watermelon</option>
+            <option value="coffee">Coffee</option>
+          </select>
           <label>Note</label>
-          <textarea className="textarea mb-20" rows={5} cols={5}></textarea>
+          <textarea
+            spellCheck={false}
+            value={flavorData.note}
+            onChange={(e) =>
+              setFlavorData({ ...flavorData, note: e.target.value })
+            }
+            className="textarea mb-20"
+            rows={5}
+            cols={5}
+          ></textarea>
           <button
             className="btn btn--submit"
             onClick={() => console.log("hello")}

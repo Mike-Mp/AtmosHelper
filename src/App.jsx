@@ -5,7 +5,7 @@ import Settings from "./pages/Settings";
 import About from "./pages/About";
 import Ohms from "./pages/Ohms";
 import Storage from "./pages/Storage";
-import AddNewStorageItem from "./pages/AddNewStorageItem";
+import StorageItem from "./pages/StorageItem";
 
 function App() {
   return (
@@ -17,9 +17,9 @@ function App() {
           <Route path="/settings" exact element={<Settings />} />
           <Route path="/storage">
             <Route path="/storage:page_number" element={<Storage />} />
-            {/* <Route path="/storage:page_number?brand" element={<Storage />} /> */}
+            <Route path="/storage/add" element={<StorageItem />} />
+            <Route path="/storage/edit/:item_id" element={<StorageItem />} />
           </Route>
-          <Route path="/addnewstorageitem" element={<AddNewStorageItem />} />
           <Route path="/about" exact element={<About />} />
           <Route path="/ohm" exact element={<Ohms />} />
         </Routes>

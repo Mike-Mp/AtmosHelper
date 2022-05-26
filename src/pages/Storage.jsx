@@ -31,6 +31,7 @@ export default function Storage() {
         console.log("pageNumber", pageNumber);
         console.log("offset", offset);
         const data = await init(offset);
+        console.log(data);
         setStorageItems(data);
       } catch (err) {
         console.log(err);
@@ -39,10 +40,6 @@ export default function Storage() {
     setPageNumber(page_number);
     initData();
   }, [page_number]);
-
-  function addItem() {
-    console.log("add");
-  }
 
   function showNote(notes) {
     console.log(notes);
@@ -71,7 +68,7 @@ export default function Storage() {
       </select>
 
       <div className="flex f-s g-20">
-        <Link to="/addnewstorageitem">
+        <Link to="/storage/add">
           <button className="btn btn--storage">
             <img src={addIcon} width="20" height="20" />
             <span>Add new item</span>
@@ -103,7 +100,7 @@ export default function Storage() {
               {storageItems &&
                 storageItems.map((item) => (
                   <tr key={item.id} className={`storage-item ${item.color}`}>
-                    <td>Big Vape</td>
+                    <td>{item.brand_name}</td>
                     <td>{item.flavor_name}</td>
                     <td>{item.amount}</td>
                     <td className={`liked--${item.liked}`}>{item.liked}</td>
@@ -114,7 +111,9 @@ export default function Storage() {
                       />
                     </td>
                     <td className="td td--center">
-                      <img src={editIcon} onClick={() => editItem(item.id)} />
+                      <Link to={`/storage/edit/${item.id}?brand_name=${item.brand_name}`}>
+                        <img src={editIcon} />
+                      </Link>
                     </td>
                   </tr>
                 ))}

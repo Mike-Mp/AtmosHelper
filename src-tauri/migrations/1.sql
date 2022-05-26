@@ -41,10 +41,10 @@ VALUES
     ('BigVape'),
     ('AtmosLab');
 
-INSERT INTO flavors (brand_id, flavor_name, amount, note, liked)
+INSERT INTO flavors (brand_id, flavor_name, amount, note, liked, color_id)
 VALUES
-    (1, "Strawberry Lemon", 2, "enjoyable", 1),
-    (1, "Chocolate Lemon", 1, "Interesting mix of flavors", 1),
-    (1, "Cocoa Mango", 3, "this sucks completely", 0),
-    (1, "Tzatziki Pie", 10, "Vaping this with pita gyro", 1),
-    (1, "Melon Pie", 5, "good", 1);
+    (1, "Strawberry Lemon", 2, "enjoyable", 1, 2),
+    (2, "Chocolate Lemon", 1, "Interesting mix of flavors", 1, 3),
+    (1, "Cocoa Mango", 3, "this sucks completely", 0, 1),
+    (2, "Tzatziki Pie", 10, "Vaping this with pita gyro", 1, 1),
+    (1, "Melon Pie", 5, "good", 1, 4);

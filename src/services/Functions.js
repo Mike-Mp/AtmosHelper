@@ -7,13 +7,17 @@ export async function init(offset) {
 
 export async function getBrands() {
   const items = await Storage.getBrands();
-  console.log(items);
   return items;
 }
 
 export async function fromBrandName(offset, brandName) {
   const items = await Storage.fromBrandName(offset, brandName);
   return items;
+}
+
+export async function getFlavor(id) {
+  const items = await Storage.getFlavor(id);
+  return items[0];
 }
 
 export async function add(title) {

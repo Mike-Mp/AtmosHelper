@@ -27,7 +27,8 @@
                     margin-left: auto;
                 }
                 input[type="checkbox"] {
-                    margin-top: 7px;
+                    margin-top: 4px;
+                    margin-left: 5px;
                 }
             }
         }
@@ -137,5 +138,9 @@ table {
         background-color: rgb(52, 199, 52);
         padding: 10px;
         font-family: 'RobMed';
+   
+        &:hover {
+            background-color: rgb(108, 235, 108);
+        }
    }
 }
