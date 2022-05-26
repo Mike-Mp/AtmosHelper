@@ -65,7 +65,7 @@ export default function Ohms() {
           <div className="form__section">
             <label htmlFor="voltage"><span>VOLTAGE (Volt)</span> <span>max: 16.8</span></label>
             <input
-              type="text"
+              type="number"
               value={ohmValues.voltage}
               onChange={(e) =>
                 setOhmValues({ ...ohmValues, voltage: e.target.value })
@@ -84,7 +84,7 @@ export default function Ohms() {
           </div>
 
           <div className="form__section">
-            <label htmlFor="voltage"><span>RESISTANCE (Ohm) </span> <span>max: 3</span></label>
+            <label htmlFor="resistance"><span>RESISTANCE (Ohm) </span> <span>max: 3</span></label>
             <input
               type="number"
               value={ohmValues.resistance}

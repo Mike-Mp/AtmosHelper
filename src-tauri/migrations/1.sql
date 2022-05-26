@@ -10,21 +10,38 @@ CREATE TABLE brands (
     brand_name TEXT NOT NULL
 );
 
-CREATE TABLE flavors (
+CREATE TABLE colors (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    flavor_name TEXT NOT NULL,
-    liked BOOLEAN NULL CHECK (liked IN (0, 1)),
-    notes TEXT NULL,
-    brand_id INTEGER NOT NULL,
-    amount INTEGER NOT NULL,
-    created NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (brand_id) REFERENCES brands (id)
+    color_name TEXT NOT NULL
 );
 
-INSERT INTO brands (brand_name)
-VALUES('BigVape');
+CREATE TABLE flavors (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    color_id INTEGER NULL,
+    brand_id INTEGER NOT NULL,
+    flavor_name TEXT NOT NULL,
+    liked BOOLEAN NULL CHECK (liked IN (0, 1)),
+    note TEXT NULL,
+    amount INTEGER NOT NULL,
+    created NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (brand_id) REFERENCES brands (id),
+    FOREIGN KEY (color_id) REFERENCES colors (id)
+);
 
-INSERT INTO flavors (brand_id, flavor_name, amount, notes, liked)
+INSERT INTO colors (color_name)
+VALUES
+    ('default'),
+    ('strawberry'),
+    ('lemon'),
+    ('watermelon'),
+    ('coffee');
+
+INSERT INTO brands (brand_name)
+VALUES
+    ('BigVape'),
+    ('AtmosLab');
+
+INSERT INTO flavors (brand_id, flavor_name, amount, note, liked)
 VALUES
     (1, "Strawberry Lemon", 2, "enjoyable", 1),
     (1, "Chocolate Lemon", 1, "Interesting mix of flavors", 1),

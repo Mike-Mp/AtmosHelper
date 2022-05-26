@@ -1,6 +1,6 @@
 @import "./styles/vars.scss";
+@import "./styles/fonts.scss";
 @import "./styles/app.scss";
-@import "./styles/inputs.scss";
 @import "./styles/form.scss";
 @import "./styles/btn.scss";
 @import "./styles/message.scss";
@@ -8,9 +8,7 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "RobReg";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
@@ -19,8 +17,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 a {
@@ -38,6 +35,11 @@ button {
   cursor: pointer;
 }
 
+h1 {
+  font-size: 1.3rem;
+  font-family: "RobMed";
+}
+
 // input[type="date"] {
 //   border: none;
 //   background-color: transparent;
@@ -53,6 +55,27 @@ button {
   float: right;
 }
 
+.margin-right {
+  margin-left: auto;
+}
+
+.w-50 {
+  width: 50%;
+}
+
+.w-100 {
+  width: 100%;
+}
+.m-0 {
+  margin: 0;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+.mb-20 {
+  margin-bottom: 20px;
+}
+
 .flex {
   display: flex;
 
@@ -64,7 +87,21 @@ button {
     justify-content: space-between;
   }
 
+  &.g-10 {
+    gap: 10px;
+  }
+
   &.g-20 {
     gap: 20px;
+  }
+}
+
+* {
+  &::-webkit-scrollbar {
+    width: 5px;
+    background-color: #EEEEEE;
+  }
+  &::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(black, .8);
   }
 }

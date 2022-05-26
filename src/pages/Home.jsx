@@ -7,7 +7,7 @@ export default function Home() {
       <header className="app__header">
         <h1>
           AtmosHelper
-          <img src={vapeIcon} width="25px" height="25px" />
+          {/* <img src={vapeIcon} width="25px" height="25px" /> */}
         </h1>
       </header>
       <section className="app__section">
