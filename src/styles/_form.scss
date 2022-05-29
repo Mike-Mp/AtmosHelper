@@ -84,22 +84,6 @@
       border-color: green;
       outline: 0;
    }
-
-   option[value="strawberry"] {
-       background-color: pink;
-       color: black;
-   }
-   option[value="lemon"] {
-       background-color: yellow;
-       color: black;
-   }
-   option[value="watermelon"] {
-       background-color: rgb(10, 180, 10);
-   }
-   option[value="coffee"] {
-       background-color: rgb(116, 38, 38);
-       color: white;
-   }
 }
 
 .textarea {
@@ -123,24 +107,12 @@ table {
    }
 }
 
-.btn {
-   &.btn--storage {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background-color: white;
-      padding: 10px 20px 10px 10px;
-      color: $black;
-      background-repeat: no-repeat;
-   }
-
-   &.btn--submit {
-        background-color: rgb(52, 199, 52);
-        padding: 10px;
-        font-family: 'RobMed';
-   
-        &:hover {
-            background-color: rgb(108, 235, 108);
-        }
-   }
+.liked {
+    &--true {
+        background-color: rgb(8, 104, 8);
+    }
+    &--false {
+        background-color: rgb(192, 26, 26);
+    }
 }
+

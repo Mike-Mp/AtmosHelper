@@ -1,6 +1,27 @@
 .btn {
     padding: 10px;
 
+
+   &.btn--storage {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: white;
+      padding: 10px 20px 10px 10px;
+      color: $black;
+      background-repeat: no-repeat;
+   }
+
+   &.btn--submit {
+        background-color: rgb(52, 199, 52);
+        padding: 10px;
+        font-family: 'RobMed';
+   
+        &:hover {
+            background-color: rgb(108, 235, 108);
+        }
+   }
+
     &.btn--reset {
         background-color: antiquewhite;
         color: black;

@@ -28,10 +28,7 @@ export default function Storage() {
     async function initData() {
       try {
         let offset = page_number === 1 ? 0 : (page_number - 1) * 6;
-        console.log("pageNumber", pageNumber);
-        console.log("offset", offset);
         const data = await init(offset);
-        console.log(data);
         setStorageItems(data);
       } catch (err) {
         console.log(err);
@@ -42,8 +39,20 @@ export default function Storage() {
   }, [page_number]);
 
   function showNote(notes) {
-    console.log(notes);
     setItemNote({ show: true, note: notes });
+  }
+
+  function getUniqueBrandNames() {
+    const arr2 = [];
+    storageItems.filter(function(item) {
+      let i = arr2.findIndex(x => (x.brand_name == item.brand_name));
+      if (i <= -1) {
+        arr2.push(item);
+      }
+      return null;
+    })
+
+    return arr2.map(item => <option value={item.id} key={item.id}>{item.brand_name}</option>);
   }
 
   return (
@@ -59,12 +68,10 @@ export default function Storage() {
 
       <select
         className="select right"
+        value={brandName}
         onChange={(e) => setBrandName(e.target.value)}
       >
-        <option>All</option>
-        <option>BigVape</option>
-        <option>AtmosLab</option>
-        <option>SmokeMan</option>
+        {getUniqueBrandNames()}
       </select>
 
       <div className="flex f-s g-20">
@@ -98,12 +105,12 @@ export default function Storage() {
                 <th>Edit</th>
               </tr>
               {storageItems &&
-                storageItems.map((item) => (
-                  <tr key={item.id} className={`storage-item ${item.color}`}>
+                storageItems.map((item) => 
+                  <tr key={item.id} className={`storage-item ${item.color_id}`}>
                     <td>{item.brand_name}</td>
                     <td>{item.flavor_name}</td>
                     <td>{item.amount}</td>
-                    <td className={`liked--${item.liked}`}>{item.liked}</td>
+                    <td className={`liked--${item.liked}`}></td>
                     <td className="td td--center">
                       <img
                         src={noteIcon}
@@ -116,7 +123,7 @@ export default function Storage() {
                       </Link>
                     </td>
                   </tr>
-                ))}
+                )}
             </tbody>
           </table>
         </section>

@@ -12,7 +12,7 @@ async function connect() {
 async function all(offset) {
   const db = await connect();
   return await db.select(
-    "SELECT flavors.flavor_name, flavors.brand_id, flavors.id, brands.brand_name FROM flavors JOIN brands on flavors.brand_id = brands.id limit 9 offset ?",
+    "SELECT flavors.flavor_name, flavors.brand_id, flavors.id, flavors.liked, flavors.notes, flavors.amount, brands.brand_name FROM flavors JOIN brands on flavors.brand_id = brands.id limit 9 offset ?",
     [offset]
   );
 }

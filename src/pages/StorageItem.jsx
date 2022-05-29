@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { useParams, useSearchParams  } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
 import { getBrands, getFlavor } from "../services/Functions";
 
@@ -16,16 +16,14 @@ export default function StorageItem() {
   const [brandName, setBrandName] = useState("");
   const [flavorData, setFlavorData] = useState({
     flavor_name: "",
-    liked: 0,
-    note: "",
+    liked: false,
+    notes: "",
     brand_id: null,
     amount: 0,
-    color: "",
-    color_id: null,
   });
 
   useEffect(() => {
-      getBrandsList();
+    getBrandsList();
   }, []);
 
   useEffect(() => {
@@ -49,6 +47,10 @@ export default function StorageItem() {
     }
   }
 
+  async function addToDatabase() {
+    
+  }
+
   return (
     <div className="app__body">
       <header className="app__header">
@@ -70,12 +72,12 @@ export default function StorageItem() {
           >
             {allBrands.length > 0
               ? allBrands.map((brand) => {
-                  return (
-                    <option key={brand.id} value={brand.id}>
-                      {brand.brand_name}
-                    </option>
-                  );
-                })
+                return (
+                  <option key={brand.id} value={brand.id}>
+                    {brand.brand_name}
+                  </option>
+                );
+              })
               : ""}
           </select>
           <label>
@@ -101,25 +103,27 @@ export default function StorageItem() {
               setFlavorData({ ...flavorData, flavor_name: e.target.value })
             }
           />
-          <label>Color</label>
-          <select className="select w-100">
-            <option value="default">Default</option>
-            <option value="strawberry">Strawberry</option>
-            <option value="lemon">Lemon</option>
-            <option value="watermelon">Watermelon</option>
-            <option value="coffee">Coffee</option>
-          </select>
+
           <label>Note</label>
           <textarea
             spellCheck={false}
-            value={flavorData.note}
+            value={flavorData.notes}
             onChange={(e) =>
-              setFlavorData({ ...flavorData, note: e.target.value })
+              setFlavorData({ ...flavorData, notes: e.target.value })
             }
             className="textarea mb-20"
             rows={5}
             cols={5}
           ></textarea>
+          <div className="flex a-c g-10">
+            <label>
+              Liked?
+            </label>
+            <label>yes</label>
+            <input type="radio" name="liked" value={true} onChange={e => setFlavorData({ ...flavorData, liked: e.target.value })} />
+            <label>no</label>
+            <input type="radio" name="liked" value={false} onChange={e => setFlavorData({ ...flavorData, liked: e.target.value })} />
+          </div>
           <button
             className="btn btn--submit"
             onClick={() => console.log("hello")}

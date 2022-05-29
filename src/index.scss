@@ -87,12 +87,21 @@ h1 {
     justify-content: space-between;
   }
 
+  &.a-c {
+    align-content: center;
+  }
+
   &.g-10 {
     gap: 10px;
   }
 
   &.g-20 {
     gap: 20px;
+  }
+
+  input[type="radio"] {
+    position: relative;
+    top: 3px;
   }
 }
 
