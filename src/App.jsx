@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Nav from "./components/Nav";
 import Home from "./pages/Home";
 import Settings from "./pages/Settings";
@@ -13,12 +13,15 @@ function App() {
       <BrowserRouter>
         <Nav />
         <Routes>
-          <Route path="/" exact element={<Home />} />
+          <Route path="/" exact element={
+            <Navigate replace to="/home"/>
+          } />
+          <Route path="/home" element={<Home />} />
           <Route path="/settings" exact element={<Settings />} />
           <Route path="/storage">
-            <Route path="/storage:page_number" element={<Storage />} />
-            <Route path="/storage/add" element={<StorageItem />} />
-            <Route path="/storage/edit/:item_id" element={<StorageItem />} />
+            <Route path="/storage:page_number" exact element={<Storage />} />
+            <Route path="/storage/add" exact element={<StorageItem />} />
+            <Route path="/storage/edit/:item_id" exact element={<StorageItem />} />
           </Route>
           <Route path="/about" exact element={<About />} />
           <Route path="/ohm" exact element={<Ohms />} />

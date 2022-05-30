@@ -2,37 +2,31 @@ import { useEffect, useState } from "react";
 
 import { useParams, useSearchParams } from "react-router-dom";
 
-import { getBrands, getFlavor } from "../services/Functions";
+import { getBrands, getFlavor, add } from "../services/Functions";
 
 export default function StorageItem() {
   const { item_id } = useParams();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const brand_name = searchParams.get('brand_name');
-
-  const [allBrands, setAllBrands] = useState([]);
-  const [selectedBrand, setSelectedBrand] = useState(allBrands[0]?.id);
+  const brand_name = searchParams.get("brand_name");
+  // const [allBrands, setAllBrands] = useState([]);
   const [useBrands, setUseBrands] = useState(false);
-  const [brandName, setBrandName] = useState("");
   const [flavorData, setFlavorData] = useState({
     flavor_name: "",
     liked: false,
     notes: "",
-    brand_id: null,
+    brand_id: "",
     amount: 0,
+    brand_name: '',
   });
 
-  useEffect(() => {
-    getBrandsList();
-  }, []);
+  console.log(flavorData)
 
   useEffect(() => {
     async function getItemData() {
       if (item_id) {
         const data = await getFlavor(item_id);
-        console.log(data);
-        setBrandName(brand_name);
-        setFlavorData({ ...data });
+        setFlavorData({...data});
       }
     }
     getItemData();
@@ -47,8 +41,23 @@ export default function StorageItem() {
     }
   }
 
-  async function addToDatabase() {
-    
+  async function addToDatabase(e) {
+    e.preventDefault();
+
+    if (
+      flavorData.brand_id.length === 0 &&
+      flavorData.brand_name.length === 0
+    ) {
+      console.log("missing values1");
+      return;
+    }
+
+    if (item_id) {
+      console.log("edit item");
+    } else {
+      const newItem = { ...flavorData };
+      const item = await add(newItem);
+    }
   }
 
   return (
@@ -57,29 +66,38 @@ export default function StorageItem() {
         <h1>{item_id ? "Edit Storage Item" : "Add Storage Item"}</h1>
       </header>
 
-      <div className="form">
+      <form className="form">
         <div className="form__section">
-          <label className="radio">
+          {/* <label className="radio">
             Existing Brands <span>Use Existing?</span>
-            <input type="checkbox" onChange={() => setUseBrands((s) => !s)} />
+            <input
+              type="checkbox"
+              onChange={() => {
+                setFlavorData({ ...flavorData, brand_name: "" });
+                setUseBrands((s) => !s);
+              }}
+            />
           </label>
           <select
             className="select"
             name="existing brand"
-            value={selectedBrand}
+            value={flavorData.brand_id}
             disabled={!useBrands}
-            onChange={(e) => setSelectedBrand(e.target.value)}
+            onChange={(e) =>
+              setFlavorData({ ...flavorData, brand_id: e.target.value })
+            }
           >
+            <option key={0}>Choose brand</option>
             {allBrands.length > 0
               ? allBrands.map((brand) => {
-                return (
-                  <option key={brand.id} value={brand.id}>
-                    {brand.brand_name}
-                  </option>
-                );
-              })
+                  return (
+                    <option key={brand.id} value={brand.id}>
+                      {brand.brand_name}
+                    </option>
+                  );
+                })
               : ""}
-          </select>
+          </select> */}
           <label>
             Brand Name
             <span className="form__info">
@@ -89,8 +107,11 @@ export default function StorageItem() {
           <input
             type="text"
             spellCheck={false}
-            value={brandName}
-            onChange={(e) => setBrandName(e.target.value)}
+            value={flavorData.brand_name}
+            onChange={(e) => {
+              setFlavorData({ ...flavorData, brand_id: "" });
+              setFlavorData({ ...flavorData, brand_name: e.target.value });
+            }}
             disabled={useBrands}
           />
 
@@ -116,22 +137,43 @@ export default function StorageItem() {
             cols={5}
           ></textarea>
           <div className="flex a-c g-10">
-            <label>
-              Liked?
-            </label>
+            <label>Liked?</label>
             <label>yes</label>
-            <input type="radio" name="liked" value={true} onChange={e => setFlavorData({ ...flavorData, liked: e.target.value })} />
+            <input
+              type="radio"
+              name="liked"
+              value={true}
+              onChange={(e) =>
+                setFlavorData({ ...flavorData, liked: e.target.value })
+              }
+            />
             <label>no</label>
-            <input type="radio" name="liked" value={false} onChange={e => setFlavorData({ ...flavorData, liked: e.target.value })} />
+            <input
+              type="radio"
+              name="liked"
+              value={false}
+              onChange={(e) =>
+                setFlavorData({ ...flavorData, liked: e.target.value })
+              }
+            />
+            <label>Amount</label>
+            <input
+              type="number"
+              value={flavorData.amount}
+              onChange={(e) =>
+                setFlavorData({ ...flavorData, amount: e.target.value })
+              }
+            />
           </div>
           <button
+            type="submit"
             className="btn btn--submit"
-            onClick={() => console.log("hello")}
+            onClick={addToDatabase}
           >
             Add Item
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

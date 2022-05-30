@@ -18,16 +18,8 @@ CREATE TABLE flavors (
     notes TEXT NULL,
     amount INTEGER NOT NULL,
     created NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (brand_id) REFERENCES brands (id),
+    FOREIGN KEY (brand_id) REFERENCES brands (id)
 );
-
-INSERT INTO colors (color_name)
-VALUES
-    ('default'),
-    ('strawberry'),
-    ('lemon'),
-    ('watermelon'),
-    ('coffee');
 
 INSERT INTO brands (brand_name)
 VALUES

@@ -20,9 +20,9 @@ export async function getFlavor(id) {
   return items[0];
 }
 
-export async function add(title) {
-  const newTodo = await Storage.create(title);
-  return newTodo;
+export async function add(newItem) {
+  const item = await Storage.create(newItem);
+  return item;
 }
 
 // PUT IN DIFFERENT FILE

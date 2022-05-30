@@ -37,9 +37,7 @@ async function getFlavor(id) {
 
 async function getDaysSmoked() {
   const db = await connect();
-
   const date = await db.execute("SELECT date_stopped_smoking FROM user_info");
-
   return date;
 }
 
@@ -55,18 +53,22 @@ async function changeDaysSmoked(newDate) {
   };
 }
 
-async function create(title) {
+async function create(newItem) {
   const db = await connect();
-  const { lastInsertId } = await db.execute(
-    "INSERT INTO todos (title) VALUES ($1)",
-    [title]
-  );
 
-  return {
-    id: lastInsertId,
-    title,
-    completed: false,
-  };
+  console.log(newItem);
+  // const brand = await db.execute()
+
+  // const { lastInsertId } = await db.execute(
+  //   "INSERT INTO todos (title) VALUES ($1)",
+  //   [title]
+  // );
+
+  // return {
+  //   id: lastInsertId,
+  //   title,
+  //   completed: false,
+  // };
 }
 
 export default {

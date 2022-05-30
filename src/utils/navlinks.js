@@ -2,7 +2,7 @@ import * as icons from './navImports';
 
 const navLinks = [
    {
-       pathname: "/",
+       pathname: "/home",
        icons: [icons.homeIcon, icons.homeIconBlue]
    },
     {

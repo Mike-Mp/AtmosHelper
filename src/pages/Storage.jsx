@@ -17,6 +17,8 @@ export default function Storage() {
   const [brandName, setBrandName] = useState("all");
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const [addNewPopUp, setAddNewPopUp] = useState(false);
+
   let { page_number } = useParams();
   page_number = parseInt(page_number);
 
@@ -44,19 +46,44 @@ export default function Storage() {
 
   function getUniqueBrandNames() {
     const arr2 = [];
-    storageItems.filter(function(item) {
-      let i = arr2.findIndex(x => (x.brand_name == item.brand_name));
+    storageItems.filter(function (item) {
+      let i = arr2.findIndex((x) => x.brand_name == item.brand_name);
       if (i <= -1) {
         arr2.push(item);
       }
       return null;
-    })
+    });
 
-    return arr2.map(item => <option value={item.id} key={item.id}>{item.brand_name}</option>);
+    return arr2.map((item) => (
+      <option value={item.id} key={item.id}>
+        {item.brand_name}
+      </option>
+    ));
   }
 
   return (
     <div className="app__body">
+      {addNewPopUp ? (
+        <div className="flex g-10 a-c storage-btns">
+          <button className="btn btn--storage">
+            {/* <img /> */}
+            <span>Add new brand</span>
+          </button>
+          <button className="btn btn--storage" disabled={storageItems.length === 0}>
+            {/* <img /> */}
+            <span>Add new flavor</span>
+          </button>
+          <button className="btn btn--storage">
+              {/* <img /> */}
+              <span>Add new brand+flavor</span>
+          </button>
+          <button onClick={() => setAddNewPopUp(false)}>
+              X
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
       {itemNote.show ? (
         <Note note={itemNote.note} setItemNote={setItemNote} />
       ) : (
@@ -71,16 +98,15 @@ export default function Storage() {
         value={brandName}
         onChange={(e) => setBrandName(e.target.value)}
       >
+        <option value={"all"}>All</option>
         {getUniqueBrandNames()}
       </select>
 
       <div className="flex f-s g-20">
-        <Link to="/storage/add">
-          <button className="btn btn--storage">
-            <img src={addIcon} width="20" height="20" />
-            <span>Add new item</span>
-          </button>
-        </Link>
+        <button className="btn btn--storage" onClick={() => setAddNewPopUp(e=>!e)}>
+          <img src={addIcon} width="20" height="20" />
+          <span>Add new item</span>
+        </button>
         <button className="btn btn--storage">
           <img
             onClick={() => console.log("lel")}
@@ -105,7 +131,7 @@ export default function Storage() {
                 <th>Edit</th>
               </tr>
               {storageItems &&
-                storageItems.map((item) => 
+                storageItems.map((item) => (
                   <tr key={item.id} className={`storage-item ${item.color_id}`}>
                     <td>{item.brand_name}</td>
                     <td>{item.flavor_name}</td>
@@ -118,12 +144,14 @@ export default function Storage() {
                       />
                     </td>
                     <td className="td td--center">
-                      <Link to={`/storage/edit/${item.id}?brand_name=${item.brand_name}`}>
+                      <Link
+                        to={`/storage/edit/${item.id}?brand_name=${item.brand_name}`}
+                      >
                         <img src={editIcon} />
                       </Link>
                     </td>
                   </tr>
-                )}
+                ))}
             </tbody>
           </table>
         </section>
