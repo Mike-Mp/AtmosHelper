@@ -32,6 +32,7 @@ export default function StorageItem({ type }) {
     async function getItemData() {
       if (item_id) {
         const data = await getFlavor(item_id);
+        // setUseBrands(true);
         setFlavorData({ ...data });
       }
     }

@@ -78,7 +78,7 @@ export default function AddNewItem({
           cols={5}
         ></textarea>
 
-        <div className="flex a-c j-c">
+        <div className="flex a-c j-s g-20">
           <div className="liked">
             <label className="liked-text">Liked?</label>
             <input
