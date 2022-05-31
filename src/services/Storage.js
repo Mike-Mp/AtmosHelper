@@ -55,20 +55,48 @@ async function changeDaysSmoked(newDate) {
 
 async function create(newItem) {
   const db = await connect();
+  let brand_id;
+  let returnedItem;
 
   console.log(newItem);
-  // const brand = await db.execute()
+  if (newItem.brand_name.length > 0) {
+    try {
+brand_id = await db.execute("INSERT INTO brands (brand_name) VALUES ($1)", [
+      newItem.brand_name,
+    ])
 
-  // const { lastInsertId } = await db.execute(
-  //   "INSERT INTO todos (title) VALUES ($1)",
-  //   [title]
-  // );
+    returnedItem = await db.execute(
+      `INSERT INTO flavors (amount, brand_id, flavor_name, liked, notes) 
+      VALUES (?, ?, ?, ?, ?)`, [
+        newItem.amount,
+        brand_id.lastInsertId,
+        newItem.flavor_name,
+        newItem.liked ? 1 : 0,
+        newItem.notes,
+      ]
+    );
+    } catch(err) {
+      console.log(err);
+    }
+    
+  } else {
+    try {
+      returnedItem = await db.execute(
+       `INSERT INTO flavors (amount, brand_id, flavor_name, liked, notes) 
+      VALUES (?, ?, ?, ?, ?)`, [
+        newItem.amount,
+        newItem.brand_id,
+        newItem.flavor_name,
+        newItem.liked ? 1 : 0,
+        newItem.notes,
+      ] 
+      );
+    } catch(err) {
+      console.log(err);
+    }
+  }
 
-  // return {
-  //   id: lastInsertId,
-  //   title,
-  //   completed: false,
-  // };
+  return returnedItem;
 }
 
 export default {

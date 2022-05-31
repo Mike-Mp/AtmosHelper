@@ -22,8 +22,6 @@ export default function StorageItem({ type }) {
     brand_name: brand_name ? brand_name : '',
   });
 
-  console.log(flavorData.liked)
-
   useEffect(() => {
     getBrandsList();
   }, [])
@@ -64,6 +62,7 @@ export default function StorageItem({ type }) {
     } else {
       const newItem = { ...flavorData };
       const item = await add(newItem);
+      console.log(item);
     }
   }
 

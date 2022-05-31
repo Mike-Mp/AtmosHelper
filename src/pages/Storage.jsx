@@ -147,7 +147,7 @@ export default function Storage() {
           <button disabled={page_number === 1}>Back</button>
         </Link>
         <Link to={`/storage/${page_number + 1}?brand=${brand}`}>
-          <button disabled={storageItems.length === 0}>More</button>
+          <button disabled={storageItems.length === 0 || storageItems.length < 8}>More</button>
         </Link>
       </section>
     </div>
