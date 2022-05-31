@@ -63,27 +63,6 @@ export default function Storage() {
 
   return (
     <div className="app__body">
-      {addNewPopUp ? (
-        <div className="flex g-10 a-c storage-btns">
-          <button className="btn btn--storage">
-            {/* <img /> */}
-            <span>Add new brand</span>
-          </button>
-          <button className="btn btn--storage" disabled={storageItems.length === 0}>
-            {/* <img /> */}
-            <span>Add new flavor</span>
-          </button>
-          <button className="btn btn--storage">
-              {/* <img /> */}
-              <span>Add new brand+flavor</span>
-          </button>
-          <button onClick={() => setAddNewPopUp(false)}>
-              X
-          </button>
-        </div>
-      ) : (
-        ""
-      )}
       {itemNote.show ? (
         <Note note={itemNote.note} setItemNote={setItemNote} />
       ) : (
@@ -103,10 +82,14 @@ export default function Storage() {
       </select>
 
       <div className="flex f-s g-20">
-        <button className="btn btn--storage" onClick={() => setAddNewPopUp(e=>!e)}>
-          <img src={addIcon} width="20" height="20" />
-          <span>Add new item</span>
-        </button>
+        <Link to="/storage/add">
+          <button
+            className="btn btn--storage"
+          >
+            <img src={addIcon} width="20" height="20" />
+            <span>Add new item</span>
+          </button>
+        </Link>
         <button className="btn btn--storage">
           <img
             onClick={() => console.log("lel")}
