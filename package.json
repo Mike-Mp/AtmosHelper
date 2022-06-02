@@ -18,7 +18,7 @@
     "react-i18next": "^11.16.9",
     "react-router-dom": "^6.3.0",
     "react-select": "^5.3.2",
-    "tauri-plugin-sql-api": "github:tauri-apps/tauri-plugin-sql",
+    "tauri-plugin-sql-api": "github:tauri-apps/tauri-plugin-sql#d4ac73484c0af73ee1cde9c704a92e4ca02cfcfc",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store"
   },
   "devDependencies": {

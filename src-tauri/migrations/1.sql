@@ -7,7 +7,7 @@ CREATE TABLE user_info (
 
 CREATE TABLE brands (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    brand_name TEXT NOT NULL
+    brand_name TEXT NOT NULL UNIQUE 
 );
 
 CREATE TABLE flavors (

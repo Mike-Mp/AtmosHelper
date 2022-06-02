@@ -13,6 +13,18 @@
         height: 15px;
     }
 
+    &--note {
+        background-color: $black;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        border: 5px solid salmon;
+        padding: 10px;
+        z-index: 999;
+        color: $white;
+        box-shadow: 1.5px 1.5px 1.5px $white;
+    }
+
     &--error {
         background-color: salmon;
     }

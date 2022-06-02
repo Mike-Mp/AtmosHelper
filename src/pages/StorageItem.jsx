@@ -5,12 +5,20 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { getBrands, getFlavor, add } from "../services/Functions";
 
 import AddNewItem from "../components/AddNewItem";
+import Message from "../components/Message";
 
 export default function StorageItem({ type }) {
   const { item_id } = useParams();
-  const [searchParams, setSearchParams] = useSearchParams();
 
+  const [feedbackMessage, setFeedbackMessage] = useState({
+    type: "",
+    message: "",
+    show: false,
+  });
+
+  const [searchParams, setSearchParams] = useSearchParams();
   const brand_name = searchParams.get("brand_name");
+
   const [allBrands, setAllBrands] = useState([]);
   const [useBrands, setUseBrands] = useState(false);
   const [flavorData, setFlavorData] = useState({
@@ -19,18 +27,17 @@ export default function StorageItem({ type }) {
     notes: "",
     brand_id: "",
     amount: 0,
-    brand_name: brand_name ? brand_name : '',
+    brand_name: brand_name ? brand_name : "",
   });
 
   useEffect(() => {
     getBrandsList();
-  }, [])
+  }, []);
 
   useEffect(() => {
     async function getItemData() {
       if (item_id) {
         const data = await getFlavor(item_id);
-        // setUseBrands(true);
         setFlavorData({ ...data });
       }
     }
@@ -48,21 +55,30 @@ export default function StorageItem({ type }) {
 
   async function addToDatabase(e) {
     e.preventDefault();
+    try {
+      if (
+        flavorData.brand_id.length === 0 &&
+        flavorData.brand_name.length === 0
+      ) {
+        console.log("missing values1");
+        setFeedbackMessage({
+          type: "error",
+          message: "Missing brand name",
+          show: true,
+        });
+        return;
+      }
 
-    if (
-      flavorData.brand_id.length === 0 &&
-      flavorData.brand_name.length === 0
-    ) {
-      console.log("missing values1");
-      return;
-    }
-
-    if (item_id) {
-      console.log("edit item");
-    } else {
-      const newItem = { ...flavorData };
-      const item = await add(newItem);
-      console.log(item);
+      if (item_id) {
+        console.log("edit item");
+      } else {
+        const newItem = { ...flavorData };
+        const item = await add(newItem);
+        console.log(item);
+      }
+    } catch (err) {
+      console.log(err);
+      setFeedbackMessage({ type: "error", message: err.message, show: true });
     }
   }
 
@@ -71,6 +87,16 @@ export default function StorageItem({ type }) {
       <header className="app__header">
         <h1>{item_id ? `Edit Storage Item` : `Add Storage Item`}</h1>
       </header>
+
+      {feedbackMessage.show ? (
+        <Message
+          type={feedbackMessage.type}
+          content={feedbackMessage.message}
+          setMessage={setFeedbackMessage}
+        />
+      ) : (
+        ""
+      )}
 
       <AddNewItem
         flavorData={flavorData}

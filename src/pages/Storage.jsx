@@ -4,7 +4,7 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 
 import { init } from "../services/Functions";
 
-import Note from "../components/Note";
+import Message from "../components/Message";
 
 import editIcon from "../icons/edit.svg";
 import noteIcon from "../icons/note.svg";
@@ -13,9 +13,14 @@ import dataIcon from "../icons/data.svg";
 
 export default function Storage() {
   const [storageItems, setStorageItems] = useState([]);
-  const [itemNote, setItemNote] = useState({ show: false, note: "" });
   const [brandName, setBrandName] = useState("all");
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const [feedbackMessage, setFeedbackMessage] = useState({
+    type: "",
+    message: "",
+    show: false,
+  });
 
   const [addNewPopUp, setAddNewPopUp] = useState(false);
 
@@ -41,7 +46,7 @@ export default function Storage() {
   }, [page_number]);
 
   function showNote(notes) {
-    setItemNote({ show: true, note: notes });
+    setFeedbackMessage({ type: "note", show: true, message: notes });
   }
 
   function getUniqueBrandNames() {
@@ -63,8 +68,12 @@ export default function Storage() {
 
   return (
     <div className="app__body">
-      {itemNote.show ? (
-        <Note note={itemNote.note} setItemNote={setItemNote} />
+      {feedbackMessage.show ? (
+        <Message
+          type={feedbackMessage.type}
+          content={feedbackMessage.message}
+          setMessage={setFeedbackMessage}
+        />
       ) : (
         ""
       )}
@@ -83,9 +92,7 @@ export default function Storage() {
 
       <div className="flex f-s g-20">
         <Link to="/storage/add">
-          <button
-            className="btn btn--storage"
-          >
+          <button className="btn btn--storage">
             <img src={addIcon} width="20" height="20" />
             <span>Add new item</span>
           </button>
@@ -147,7 +154,11 @@ export default function Storage() {
           <button disabled={page_number === 1}>Back</button>
         </Link>
         <Link to={`/storage/${page_number + 1}?brand=${brand}`}>
-          <button disabled={storageItems.length === 0 || storageItems.length < 8}>More</button>
+          <button
+            disabled={storageItems.length === 0 || storageItems.length < 8}
+          >
+            More
+          </button>
         </Link>
       </section>
     </div>

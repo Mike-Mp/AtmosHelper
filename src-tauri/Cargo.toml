@@ -17,9 +17,9 @@ tauri-build = { version = "1.0.0-rc.8", features = [] }
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
-tauri = { version = "1.0.0-rc.9", features = ["api-all"] }
+tauri = { version = "1.0.0-rc.11", features = ["api-all"] }
 tauri-plugin-store = {git = "https://github.com/tauri-apps/tauri-plugin-store"}
-tauri-plugin-sql = {git = "https://github.com/tauri-apps/tauri-plugin-sql", features = ["sqlite"] }
+tauri-plugin-sql = {git = "https://github.com/tauri-apps/tauri-plugin-sql", branch="dev", features = ["sqlite"] }
 
 # [dependencies.tauri-plugin-store]
 # git = "https://github.com/tauri-apps/tauri-plugin-store"
