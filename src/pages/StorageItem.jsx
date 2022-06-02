@@ -7,7 +7,7 @@ import { getBrands, getFlavor, add } from "../services/Functions";
 import AddNewItem from "../components/AddNewItem";
 import Message from "../components/Message";
 
-export default function StorageItem({ type }) {
+export default function StorageItem() {
   const { item_id } = useParams();
 
   const [feedbackMessage, setFeedbackMessage] = useState({
@@ -71,10 +71,13 @@ export default function StorageItem({ type }) {
 
       if (item_id) {
         console.log("edit item");
-      } else {
-        const newItem = { ...flavorData };
-        const item = await add(newItem);
+        const item = await edit(flavorData)
         console.log(item);
+        setFeedbackMessage({type: 'success', message: 'Item edited!', show: true})
+      } else {
+        const item = await add(flavorData);
+        console.log(item);
+        setFeedbackMessage({type: 'success', message: 'Item added!', show: true})
       }
     } catch (err) {
       console.log(err);

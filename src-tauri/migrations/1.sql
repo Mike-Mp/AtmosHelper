@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS brands;
 DROP TABLE IF EXISTS flavors;
 
 CREATE TABLE user_info (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     date_stopped_smoking DATE NOT NULL
 );
 

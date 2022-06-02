@@ -1,11 +1,18 @@
 .message {
     padding: 10px;
     position: absolute;
-    top: 10%;
-    left: 12.4%;
     display: flex;
     align-items: center;
     gap: 20px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    border: 5px solid salmon;
+    padding: 10px;
+    z-index: 999;
+    color: $white;
+    box-shadow: 1.5px 1.5px 1.5px $white;
+
 
     img {
         cursor: pointer;
@@ -15,17 +22,13 @@
 
     &--note {
         background-color: $black;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        left: 50%;
-        border: 5px solid salmon;
-        padding: 10px;
-        z-index: 999;
-        color: $white;
-        box-shadow: 1.5px 1.5px 1.5px $white;
     }
-
+    &--success {
+        background-color: rgb(28, 184, 28);
+        border-color: white;
+    }
     &--error {
         background-color: salmon;
+        border-color: black;
     }
 }

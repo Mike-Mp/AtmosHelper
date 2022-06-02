@@ -37,20 +37,31 @@ async function getFlavor(id) {
 
 async function getDaysSmoked() {
   const db = await connect();
-  const date = await db.execute("SELECT date_stopped_smoking FROM user_info");
+  const date = await db.select("SELECT * FROM user_info");
+  console.log(date[0].date_stopped_smoking);
   return date;
 }
 
 async function changeDaysSmoked(newDate) {
   const db = await connect();
-  const date = await db.execute(
-    "INSERT INTO user_info (date_stopped_smoking) VALUES ($1)",
+  const item_update = await db.execute(
+    "UPDATE user_info SET date_stopped_smoking = ? WHERE id = 1",
     [newDate]
   );
 
-  return {
-    date_stopped_smoking: date,
-  };
+  console.log(newDate);
+
+  if (item_update.rowsAffected === 0) {
+    await db.execute("INSERT INTO user_info (date_stopped_smoking) VALUES (?)", [newDate])
+  }
+
+  let date_1 = new Date(newDate);
+  let date_2 = new Date();
+
+  let difference = date_2.getTime() - date_1.getTime();
+  let totalDays = Math.ceil(difference / (1000 * 3600 * 24));
+
+  return totalDays;
 }
 
 async function create(newItem) {
