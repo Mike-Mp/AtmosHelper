@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS flavors;
 
 CREATE TABLE user_info (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    date_stopped_smoking DATE NOT NULL
+    date_stopped_smoking TEXT NOT NULL
 );
 
 CREATE TABLE brands (

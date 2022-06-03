@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import vapeIcon from '../icons/vape.png';
 import { changeDaysSmoked, getDaysSmoked } from "../services/Functions";
+import { dateFormatter } from "../utils/helperFunctions";
 
 export default function Home() {
   const [dateStopped, setDateStopped] = useState('');
@@ -8,18 +9,26 @@ export default function Home() {
 
   useEffect(() => {
     async function initDaysSmoked() {
-      const date = await getDaysSmoked();
-      console.log(date);
-      setDateStopped(date[0].date_stopped_smoking);
+      const [date,days] = await getDaysSmoked();
+      console.log(date, days)
+      setDateStopped(date);
+      setDaysStopped(days);
     }
 
     initDaysSmoked();
   }, [])
 
+
   async function changeDateStopped() {
-    const newDays = await changeDaysSmoked(dateStopped);
+    const newDate = dateFormatter(dateStopped);
+    const newDays = await changeDaysSmoked(newDate);
     console.log(newDays);
     setDaysStopped(newDays);
+  }
+
+  async function getDate() {
+    const date = await getDaysSmoked();
+    console.log(date);
   }
 
   console.log(dateStopped);
@@ -36,7 +45,7 @@ export default function Home() {
           <h4>Stopped smoking: <span>{daysStopped}</span> days ago</h4>
       </section>
       <section className="app__section flex g-20">
-          <input className="datepicker" value={dateStopped ? dateStopped : new Date()} type="date" onChange={(e)=>setDateStopped(e.target.value)}/>
+          <input className="datepicker" value={dateStopped} type="date" onChange={(e)=>setDateStopped(e.target.value)}/>
           <button className="btn btn--reset" onClick={changeDateStopped}>
             Change Date
           </button>

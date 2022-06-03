@@ -1,4 +1,5 @@
 import Database from "tauri-plugin-sql-api";
+import { dateFormatter, dayGetter } from "../utils/helperFunctions";
 
 async function connect() {
   try {
@@ -37,29 +38,26 @@ async function getFlavor(id) {
 
 async function getDaysSmoked() {
   const db = await connect();
-  const date = await db.select("SELECT * FROM user_info");
-  console.log(date[0].date_stopped_smoking);
-  return date;
+  const date = await db.select("SELECT * FROM user_info WHERE id = 1").then(res=>res[0].date_stopped_smoking);
+  if (!date) return [dateFormatter(), 0];
+  
+  const days = dayGetter(date);
+  return [date, days];
 }
 
 async function changeDaysSmoked(newDate) {
   const db = await connect();
+  console.log('changeDaysSmoked', newDate);
   const item_update = await db.execute(
     "UPDATE user_info SET date_stopped_smoking = ? WHERE id = 1",
     [newDate]
   );
 
-  console.log(newDate);
-
   if (item_update.rowsAffected === 0) {
     await db.execute("INSERT INTO user_info (date_stopped_smoking) VALUES (?)", [newDate])
   }
 
-  let date_1 = new Date(newDate);
-  let date_2 = new Date();
-
-  let difference = date_2.getTime() - date_1.getTime();
-  let totalDays = Math.ceil(difference / (1000 * 3600 * 24));
+  const totalDays = dayGetter(newDate);
 
   return totalDays;
 }
