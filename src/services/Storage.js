@@ -126,9 +126,24 @@ async function create(newItem) {
   return returnedItem;
 }
 
+async function edit(newItem, item_id) {
+  const db = await connect();
+
+  try {
+    const flavor_exist = await db.execute(`UPDATE flavors SET flavor_name = ?, liked = ?, notes = ?, amount = ?
+    WHERE id = ?
+    `, [newItem.flavor_name, newItem.liked ? 1 : 0, newItem.notes, newItem.amount, item_id]);
+
+    console.log(flavor_exist);
+  } catch(err) {
+    return err;
+  }
+}
+
 export default {
   all,
   create,
+  edit,
   fromBrandName,
   getBrands,
   getFlavor,

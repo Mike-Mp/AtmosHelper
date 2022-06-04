@@ -5,57 +5,52 @@ export default function AddNewItem({
   setUseBrands,
   allBrands,
   addToDatabase,
+  item_id,
 }) {
   return (
     <form className="form">
       <div className="form__section">
-        <label className="radio">
-          Existing Brands <span>Use Existing?</span>
-          <input
-            type="checkbox"
-            onChange={() => {
-              setFlavorData({ ...flavorData, brand_name: "" });
-              setUseBrands((s) => !s);
-            }}
-          />
-        </label>
-        <select
-          className="select"
-          name="existing brand"
-          value={flavorData.brand_id}
-          disabled={!useBrands}
-          onChange={(e) =>
-            setFlavorData({ ...flavorData, brand_id: e.target.value })
-          }
-        >
-          <option key={0}>Choose brand</option>
-          {allBrands.length > 0
-            ? allBrands.map((brand) => {
-                return (
-                  <option key={brand.id} value={brand.id}>
-                    {brand.brand_name}
-                  </option>
-                );
-              })
-            : ""}
-        </select>
-        <label>
-          Brand Name
-          <span className="form__info">
-            (not required if brand already exists)
-          </span>
-        </label>
-        <input
-          type="text"
-          spellCheck={false}
-          value={flavorData.brand_name}
-          onChange={(e) => {
-            setFlavorData({ ...flavorData, brand_id: "" });
-            setFlavorData({ ...flavorData, brand_name: e.target.value });
-          }}
-          disabled={useBrands}
-        />
-
+        {item_id ? "" : 
+        <><label className="radio">
+            Existing Brands <span>Use Existing?</span>
+            <input
+              type="checkbox"
+              onChange={() => {
+                setFlavorData({ ...flavorData, brand_name: "" });
+                setUseBrands((s) => !s);
+              } } />
+          </label><select
+            className="select"
+            name="existing brand"
+            value={flavorData.brand_id}
+            disabled={!useBrands}
+            onChange={(e) => setFlavorData({ ...flavorData, brand_id: e.target.value })}
+          >
+              <option key={0}>Choose brand</option>
+              {allBrands.length > 0
+                ? allBrands.map((brand) => {
+                  return (
+                    <option key={brand.id} value={brand.id}>
+                      {brand.brand_name}
+                    </option>
+                  );
+                })
+                : ""}
+            </select><label>
+              Brand Name
+              <span className="form__info">
+                (not required if brand already exists)
+              </span>
+            </label><input
+              type="text"
+              spellCheck={false}
+              value={flavorData.brand_name}
+              onChange={(e) => {
+                setFlavorData({ ...flavorData, brand_id: "" });
+                setFlavorData({ ...flavorData, brand_name: e.target.value });
+              } }
+              disabled={useBrands} /></>
+        }
         <label>Flavor Name</label>
         <input
           spellCheck={false}
@@ -102,6 +97,7 @@ export default function AddNewItem({
               onChange={(e) =>
                 setFlavorData({ ...flavorData, amount: e.target.value })
               }
+              min={0}
             />
           </div>
         </div>
@@ -110,7 +106,7 @@ export default function AddNewItem({
           className="btn btn--submit"
           onClick={addToDatabase}
         >
-          Add Item
+          {item_id ? "Edit Item" : "Add Item"}
         </button>
       </div>
     </form>

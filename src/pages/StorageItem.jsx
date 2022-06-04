@@ -2,14 +2,13 @@ import { useEffect, useState } from "react";
 
 import { useParams, useSearchParams } from "react-router-dom";
 
-import { getBrands, getFlavor, add } from "../services/Functions";
+import { getBrands, getFlavor, add, edit } from "../services/Functions";
 
 import AddNewItem from "../components/AddNewItem";
 import Message from "../components/Message";
 
 export default function StorageItem() {
   const { item_id } = useParams();
-
   const [feedbackMessage, setFeedbackMessage] = useState({
     type: "",
     message: "",
@@ -53,14 +52,11 @@ export default function StorageItem() {
     }
   }
 
-  async function addToDatabase(e) {
-    e.preventDefault();
-    try {
+  function basicValidation() {
       if (
         flavorData.brand_id.length === 0 &&
         flavorData.brand_name.length === 0
       ) {
-        console.log("missing values1");
         setFeedbackMessage({
           type: "error",
           message: "Missing brand name",
@@ -68,10 +64,16 @@ export default function StorageItem() {
         });
         return;
       }
+  }
+
+  async function addToDatabase(e) {
+    e.preventDefault();
+    try {
+      basicValidation();
 
       if (item_id) {
-        console.log("edit item");
-        const item = await edit(flavorData)
+        basicValidation();
+        const item = await edit(flavorData, item_id);
         console.log(item);
         setFeedbackMessage({type: 'success', message: 'Item edited!', show: true})
       } else {
@@ -108,6 +110,7 @@ export default function StorageItem() {
         setUseBrands={setUseBrands}
         allBrands={allBrands}
         addToDatabase={addToDatabase}
+        item_id={item_id}
       />
     </div>
   );
