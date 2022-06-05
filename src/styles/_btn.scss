@@ -22,6 +22,17 @@
         }
    }
 
+   &.btn--delete {
+       background-color: rgb(204, 45, 45);
+       padding: 10px;
+       font-family: 'RobMed';
+       margin-top: 50px;
+
+       &:hover {
+        background-color: rgb(172, 52, 52);
+       }
+   }
+
     &.btn--reset {
         background-color: antiquewhite;
         color: black;

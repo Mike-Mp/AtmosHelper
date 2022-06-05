@@ -5,52 +5,64 @@ export default function AddNewItem({
   setUseBrands,
   allBrands,
   addToDatabase,
+  deleteItem,
   item_id,
 }) {
   return (
     <form className="form">
       <div className="form__section">
-        {item_id ? "" : 
-        <><label className="radio">
-            Existing Brands <span>Use Existing?</span>
-            <input
-              type="checkbox"
-              onChange={() => {
-                setFlavorData({ ...flavorData, brand_name: "" });
-                setUseBrands((s) => !s);
-              } } />
-          </label><select
-            className="select"
-            name="existing brand"
-            value={flavorData.brand_id}
-            disabled={!useBrands}
-            onChange={(e) => setFlavorData({ ...flavorData, brand_id: e.target.value })}
-          >
+        {item_id ? (
+          ""
+        ) : (
+          <>
+            <label className="radio">
+              Existing Brands <span>Use Existing?</span>
+              <input
+                type="checkbox"
+                onChange={() => {
+                  setFlavorData({ ...flavorData, brand_name: "" });
+                  setUseBrands((s) => !s);
+                }}
+              />
+            </label>
+            <select
+              className="select"
+              name="existing brand"
+              value={flavorData.brand_id}
+              disabled={!useBrands}
+              onChange={(e) =>
+                setFlavorData({ ...flavorData, brand_id: e.target.value })
+              }
+            >
               <option key={0}>Choose brand</option>
               {allBrands.length > 0
                 ? allBrands.map((brand) => {
-                  return (
-                    <option key={brand.id} value={brand.id}>
-                      {brand.brand_name}
-                    </option>
-                  );
-                })
+                    return (
+                      <option key={brand.id} value={brand.id}>
+                        {brand.brand_name}
+                      </option>
+                    );
+                  })
                 : ""}
-            </select><label>
+            </select>
+            <label>
               Brand Name
               <span className="form__info">
                 (not required if brand already exists)
               </span>
-            </label><input
+            </label>
+            <input
               type="text"
               spellCheck={false}
               value={flavorData.brand_name}
               onChange={(e) => {
                 setFlavorData({ ...flavorData, brand_id: "" });
                 setFlavorData({ ...flavorData, brand_name: e.target.value });
-              } }
-              disabled={useBrands} /></>
-        }
+              }}
+              disabled={useBrands}
+            />
+          </>
+        )}
         <label>Flavor Name</label>
         <input
           spellCheck={false}
@@ -108,6 +120,16 @@ export default function AddNewItem({
         >
           {item_id ? "Edit Item" : "Add Item"}
         </button>
+        {item_id ? (
+          <button
+            className="btn btn--delete"
+            onClick={deleteItem}
+          >
+            Delete Item
+          </button>
+        ) : (
+          ""
+        )}
       </div>
     </form>
   );

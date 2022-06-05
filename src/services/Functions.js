@@ -30,6 +30,11 @@ export async function edit(newItem, item_id) {
   return item;
 }
 
+export async function deleteItem(item_id) {
+  const item = await Storage.deleteItem(item_id);
+  return item;
+}
+
 // PUT IN DIFFERENT FILE
 export async function getDaysSmoked() {
   const date = await Storage.getDaysSmoked();

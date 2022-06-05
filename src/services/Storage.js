@@ -140,10 +140,27 @@ async function edit(newItem, item_id) {
   }
 }
 
+async function deleteItem(item_id) {
+  const db = await connect();
+
+
+  try {
+
+  console.log('reached here?')
+    const row_affected = await db.execute(`DELETE FROM flavors WHERE id = ?`, [item_id])
+
+    console.log(row_affected);
+    return row_affected;
+  } catch(err) {
+    return err;
+  }
+}
+
 export default {
   all,
   create,
   edit,
+  deleteItem,
   fromBrandName,
   getBrands,
   getFlavor,

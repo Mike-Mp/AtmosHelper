@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react";
 
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
-import { getBrands, getFlavor, add, edit } from "../services/Functions";
+import { getBrands, getFlavor, add, edit, deleteItem } from "../services/Functions";
 
 import AddNewItem from "../components/AddNewItem";
 import Message from "../components/Message";
 
 export default function StorageItem() {
+  const navigate = useNavigate();
+
   const { item_id } = useParams();
+
   const [feedbackMessage, setFeedbackMessage] = useState({
     type: "",
     message: "",
     show: false,
+    actionToDo: () => console.log('lel'),
   });
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -87,6 +91,19 @@ export default function StorageItem() {
     }
   }
 
+  async function deleteFromDatabase(e) {
+    e.preventDefault();
+    try {
+      const item = await deleteItem(item_id);
+      console.log('item', item);
+      navigate('/storage/1');
+    } catch(err) {
+      console.log(err)
+      setFeedbackMessage({type: "error", message: err.message, show: true});
+    }
+  }
+
+
   return (
     <div className="app__body">
       <header className="app__header">
@@ -98,6 +115,7 @@ export default function StorageItem() {
           type={feedbackMessage.type}
           content={feedbackMessage.message}
           setMessage={setFeedbackMessage}
+          actionToDo={feedbackMessage.actionToDo}
         />
       ) : (
         ""
@@ -110,6 +128,7 @@ export default function StorageItem() {
         setUseBrands={setUseBrands}
         allBrands={allBrands}
         addToDatabase={addToDatabase}
+        deleteItem={deleteFromDatabase}
         item_id={item_id}
       />
     </div>
