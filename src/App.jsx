@@ -7,9 +7,14 @@ import Ohms from "./pages/Ohms";
 import Storage from "./pages/Storage";
 import StorageItem from "./pages/StorageItem";
 
+import { useContext } from 'react';
+import { ThemeContext } from './components/ThemeProvider';
+
 function App() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
   return (
-    <div className="app">
+    <div className={`app app--${theme}`}>
       <BrowserRouter>
         <Nav />
         <Routes>

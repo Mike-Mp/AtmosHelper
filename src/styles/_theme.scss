@@ -1,0 +1,33 @@
+.app {
+   &--dark {
+    background-color: #212229;
+    color: white;
+   } 
+
+   &--light {
+       background-color: white;
+       color: #212229;
+
+       .select {
+           border-color: #212229;
+       }
+
+       .btn.btn--storage {
+           border: 1px solid #212229;
+       }
+
+       tr {
+            background-color: azure;
+       }
+
+       .app__section.section--page-btns a button {
+           background-color: #212229;
+           color: white;
+       }
+
+       .app__section.section--page-btns button:disabled {
+           background-color: gray;
+           color: #212229;
+       }
+   }
+}
