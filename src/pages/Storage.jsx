@@ -48,6 +48,7 @@ export default function Storage() {
   function showNote(notes) {
     setFeedbackMessage({ type: "note", show: true, message: notes });
   }
+    console.log('showNote fun', feedbackMessage.show);
 
   function getUniqueBrandNames() {
     const arr2 = [];

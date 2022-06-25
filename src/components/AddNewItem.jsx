@@ -81,6 +81,7 @@ export default function AddNewItem({
             setFlavorData({ ...flavorData, notes: e.target.value })
           }
           className="textarea mb-20"
+          maxLength="1626"
           rows={5}
           cols={5}
         ></textarea>

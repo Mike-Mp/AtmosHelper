@@ -3,6 +3,8 @@
 
     &__nav {
         padding: 5px;
+        margin: 10px;
+        border-radius: 10px;
         background-color: $white;
         display: flex;
         align-items: center;
@@ -15,31 +17,42 @@
         }
     }
 
+    &.app--light {
+      .app__nav {
+        background-color: $black;
+      }
+      .app__dropdown {
+        background-color: $black;
+        color: $white;
+      }
+    }
+
     &__dropdown-btn {
     }
 
     &__dropdown {
         display: flex;
-        flex-direction: column;
-        z-index: 999;
+        border-radius: 10px;
+        flex-direction: row;
+        z-index: 100000;
         gap: 10px;
         position: absolute;
-        top: 8.1%;
-        left: 0%;
+        top: 9.8%;
+        left: 1.5%;
         padding: 5px;
         background-color: $white;
         transition: .1s all;
         opacity: 1;
 
-        &::before {
-            content: '';
-            position: absolute;
-            bottom: 0%;
-            left: 0%;
-            width: 5px;
-            height: 120px;
-            background-color: $white;
-        }
+        // &::before {
+        //     content: '';
+        //     position: absolute;
+        //     bottom: 0%;
+        //     left: 0%;
+        //     width: 5px;
+        //     height: 120px;
+        //     background-color: $white;
+        // }
 
         button {
             text-align: left;

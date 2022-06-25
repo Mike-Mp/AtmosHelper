@@ -18,10 +18,12 @@
         cursor: pointer;
         width: 15px;
         height: 15px;
+        margin-left: auto;
     }
 
     &--note {
         background-color: $black;
+        width: 95%;
     }
     &--success {
         background-color: rgb(28, 184, 28);

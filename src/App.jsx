@@ -16,7 +16,7 @@ function App() {
   return (
     <div className={`app app--${theme}`}>
       <BrowserRouter>
-        <Nav />
+        <Nav theme={theme}/>
         <Routes>
           <Route path="/" exact element={
             <Navigate replace to="/home"/>
