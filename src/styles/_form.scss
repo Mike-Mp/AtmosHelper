@@ -47,6 +47,14 @@
     }
 }
 
+input[type="text"]:disabled {
+  background-color: #ccc;
+  border-color: #ccc;
+  border-radius: 5px;
+  border-style: solid;
+  color: black;
+}
+
 .datepicker {
     background-color: #ffffff;
     padding: 5px;

@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 
 import { Link, useParams, useSearchParams } from "react-router-dom";
 
-import { init } from "../services/Functions";
+import { flavorsFromBrandId, init } from "../services/Functions";
 
 import Message from "../components/Message";
 
@@ -31,6 +31,8 @@ export default function Storage() {
 
   const [pageNumber, setPageNumber] = useState(page_number);
 
+  // WRONG
+  // check if brand id chosen 
   useEffect(() => {
     async function initData() {
       try {
@@ -48,11 +50,11 @@ export default function Storage() {
   function showNote(notes) {
     setFeedbackMessage({ type: "note", show: true, message: notes });
   }
-    console.log('showNote fun', feedbackMessage.show);
+  console.log('showNote fun', feedbackMessage.show);
 
   function getUniqueBrandNames() {
     const arr2 = [];
-    storageItems.filter(function (item) {
+    storageItems.filter(function(item) {
       let i = arr2.findIndex((x) => x.brand_name == item.brand_name);
       if (i <= -1) {
         arr2.push(item);
@@ -65,6 +67,13 @@ export default function Storage() {
         {item.brand_name}
       </option>
     ));
+  }
+
+  async function getOneBrand() {
+    let offset = page_number === 1 ? 0 : (page_number - 1) * 6;
+    const items = await flavorsFromBrandId(offset, brandName);
+    setPageNumber(page_number);
+    setStorageItems(items);
   }
 
   return (
@@ -98,7 +107,7 @@ export default function Storage() {
             <span>Add new item</span>
           </button>
         </Link>
-        <button className="btn btn--storage">
+        <button onClick={getOneBrand} className="btn btn--storage">
           <img
             onClick={() => console.log("lel")}
             src={dataIcon}

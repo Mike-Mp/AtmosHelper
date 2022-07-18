@@ -10,6 +10,11 @@ export async function getBrands() {
   return items;
 }
 
+export async function getBrand(id) {
+  const item = await Storage.getBrand(id);
+  return item[0];
+}
+
 export async function fromBrandName(offset, brandName) {
   const items = await Storage.fromBrandName(offset, brandName);
   return items;
@@ -18,6 +23,11 @@ export async function fromBrandName(offset, brandName) {
 export async function getFlavor(id) {
   const items = await Storage.getFlavor(id);
   return items[0];
+}
+
+export async function flavorsFromBrandId(offset, brand_id) {
+  const items = await Storage.getFlavorsFromBrandId(offset, brand_id);
+  return items;
 }
 
 export async function add(newItem) {

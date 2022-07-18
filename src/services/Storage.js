@@ -31,6 +31,13 @@ async function getBrands() {
   return await db.select("SELECT * FROM brands");
 }
 
+async function getFlavorsFromBrandId(offset, brand_id) {
+  const db = await connect();
+  return await db.select(
+    "SELECT flavors.flavor_name, flavors.brand_id, flavors.id, flavors.liked, flavors.notes, flavors.amount, brands.brand_name FROM flavors  JOIN brands on flavors.brand_id = brands.id WHERE brand_id = ? limit 9 offset ? ",
+    [brand_id, offset]);
+}
+
 async function getFlavor(id) {
   const db = await connect();
   return await db.select("SELECT * FROM flavors WHERE id = ?", [parseInt(id)]);
@@ -38,9 +45,9 @@ async function getFlavor(id) {
 
 async function getDaysSmoked() {
   const db = await connect();
-  const date = await db.select("SELECT * FROM user_info WHERE id = 1").then(res=>res[0].date_stopped_smoking);
+  const date = await db.select("SELECT * FROM user_info WHERE id = 1").then(res => res[0].date_stopped_smoking);
   if (!date) return [dateFormatter(), 0];
-  
+
   const days = dayGetter(date);
   return [date, days];
 }
@@ -135,7 +142,7 @@ async function edit(newItem, item_id) {
     `, [newItem.flavor_name, newItem.liked ? 1 : 0, newItem.notes, newItem.amount, item_id]);
 
     console.log(flavor_exist);
-  } catch(err) {
+  } catch (err) {
     return err;
   }
 }
@@ -146,12 +153,12 @@ async function deleteItem(item_id) {
 
   try {
 
-  console.log('reached here?')
+    console.log('reached here?')
     const row_affected = await db.execute(`DELETE FROM flavors WHERE id = ?`, [item_id])
 
     console.log(row_affected);
     return row_affected;
-  } catch(err) {
+  } catch (err) {
     return err;
   }
 }
@@ -164,6 +171,7 @@ export default {
   fromBrandName,
   getBrands,
   getFlavor,
+  getFlavorsFromBrandId,
   getDaysSmoked,
   changeDaysSmoked,
 };
